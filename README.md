@@ -1,24 +1,3 @@
-# element-admin
-
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+# BackStage-Management
+完成大学课程期末作业开发的后台管理系统项目
+Vue全家桶 + Node.js + MySQL

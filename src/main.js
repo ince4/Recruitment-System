@@ -20,7 +20,8 @@ import {
   DropdownItem,
   DropdownMenu,
   Table,
-  TableColumn
+  TableColumn,
+  Input
 } from 'element-ui'
 
 Vue.use(Button)
@@ -38,6 +39,7 @@ Vue.use(DropdownItem)
 Vue.use(DropdownMenu)
 Vue.use(Table)
 Vue.use(TableColumn)
+Vue.use(Input)
 
 
 Vue.config.productionTip = false

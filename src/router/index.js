@@ -6,13 +6,20 @@ Vue.use(VueRouter)
 
   const routes = [
   {
-    path: '/',
-    name: 'article-list',
-    redirect: 'article/list'
-    // component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: '/login',
+    name: 'login',
+    component: () => import('../views/Login.vue'),
+    meta: {
+      hideSideBar: true
+    }
   },
   {
-    path: 'article/list',
+    path: '/',
+    name: 'article-list',
+    redirect: '/article/list'
+  },
+  {
+    path: '/article/list',
     name: 'article-list',
     component: ArticleList
   }

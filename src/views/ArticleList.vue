@@ -11,7 +11,6 @@
         </el-dropdown>
         <span>王小虎</span>
       </el-header>
-      
       <el-main>
         <el-table :data="tableData">
           <el-table-column prop="date" label="日期" width="140">
@@ -24,20 +23,10 @@
       </el-main>
     </el-container>
 </template>
-<style>
-  .el-header {
-    background-color: #B3C0D1;
-    color: #333;
-    line-height: 60px;
-  }
-  
-  .el-aside {
-    color: #333;
-  }
-</style>
 
 <script>
   export default {
+    name: 'article-list',
     data() {
       const item = {
         date: '2016-05-02',
@@ -50,3 +39,15 @@
     }
   };
 </script>
+
+<style>
+  .el-header {
+    background-color: #B3C0D1;
+    color: #333;
+    line-height: 60px;
+  }
+  
+  .el-aside {
+    color: #333;
+  }
+</style>

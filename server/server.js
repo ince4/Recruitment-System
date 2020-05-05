@@ -10,7 +10,7 @@ const loginRouter = require('./router/login')
 loginRouter(app)
 
 app.get('/', async(req,res) => {
-	res.send('?')
+	res.send('')
 })
 
 app.listen(3030, () => {

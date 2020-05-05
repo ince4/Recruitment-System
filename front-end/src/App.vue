@@ -1,7 +1,9 @@
 <template>
   <el-container style="height: 100vh">
     <el-aside v-if="!$route.meta.hideSideBar" width="200px" style="background-color: rgb(238, 241, 246)">
-      <side-nav></side-nav>
+      <!-- <candidate-nav></candidate-nav> -->
+      <company-nav></company-nav>
+      <!-- <component :is="componentId"></component> -->
     </el-aside>
     <el-main style="padding: 0">
       <router-view></router-view>
@@ -10,20 +12,23 @@
 </template>
 
 <script>
-  import SideNav from './components/SideNav'
+  // import CandidateNav from './components/CandidateNav'
+  import CompanyNav from './components/CompanyNav'
   export default {
     data() {
-      const item = {
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }
       return {
-        tableData: Array(20).fill(item)
+        usertype: ''
       }
     },
     components: {
-      SideNav
+      // CandidateNav,
+      CompanyNav
+    },
+    watch: {
+      $route() {
+        this.usertype = this.$route.query.usertype
+        console.log(this.usertype)
+      }
     },
   }
 </script>

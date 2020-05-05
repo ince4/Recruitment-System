@@ -23,7 +23,7 @@ import {
   Table,
   TableColumn,
   Input,
-  Tooltip
+  MessageBox,
 } from 'element-ui'
 
 Vue.use(Button)
@@ -42,11 +42,16 @@ Vue.use(DropdownMenu)
 Vue.use(Table)
 Vue.use(TableColumn)
 Vue.use(Input)
-Vue.use(Tooltip)
 
 Vue.use(VueCookies)
 
+Vue.prototype.$msgbox = MessageBox
+Vue.prototype.$alert = MessageBox.alert
+Vue.prototype.$confirm = MessageBox.confirm
+Vue.prototype.$prompt = MessageBox.prompt
 Vue.prototype.$axios = axios
+
+
 axios.defaults.baseURL = 'http://localhost:3030/'
 Vue.config.productionTip = false
 

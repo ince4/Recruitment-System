@@ -6,6 +6,10 @@ Vue.use(VueRouter)
 
   const routes = [
   {
+    path: '*',
+    redirect: '/index'
+  },
+  {
     name: 'login',
     path: '/login',
     component: Login,
@@ -13,14 +17,23 @@ Vue.use(VueRouter)
       hideSideBar: true
     }
   },
-  // {
-  //   path: '*',
-  //   redirect: '/article/list'
-  // },
   {
-    name: 'articleList',
-    path: '/article/list',
-    component: () => import('../views/ArticleList.vue'),
+    name: 'UserTypeSelect',
+    path: '/usertypeselect',
+    component: () => import('../views/UserTypeSelect.vue'),
+    meta: {
+      hideSideBar: true
+    } 
+  },
+  {
+    name: 'Information',
+    path: '/information',
+    component: () => import('../views/Information.vue')
+  },
+  {
+    name: 'index', 
+    path: '/index',
+    component: () => import('../views/Index.vue'),
   }
 ]
 
@@ -31,9 +44,14 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   const isLogin = router.app.$cookies.get('loginStatus')
-  if (isLogin !== 'logged' && to.path !== '/login') {
-    next('/login')
-  }
+  if (to.path == '/login') {
+    if (isLogin === 'logged') {
+      next(from)
+    }
     next()
+  } else {
+    isLogin === 'logged' ? next() : next('/login')
+  }
 })
+
 export default router

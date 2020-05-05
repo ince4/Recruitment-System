@@ -1,15 +1,15 @@
 <template>
     <el-container style ="height: 100vh">
       <el-header style="text-align: right; font-size: 12px">
-        <el-dropdown>
-          <i class="el-icon-setting" style="margin-right: 15px"></i>
-          <el-dropdown-menu slot="dropdown">
+        <!-- <el-dropdown> -->
+          <!-- <i class="el-icon-setting" style="margin-right: 15px"></i> -->
+          <!-- <el-dropdown-menu slot="dropdown">
             <el-dropdown-item>查看</el-dropdown-item>
             <el-dropdown-item>新增</el-dropdown-item>
             <el-dropdown-item>删除</el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
-        <span>王小虎</span>
+          </el-dropdown-menu> -->
+        <!-- </el-dropdown> -->
+        <span>{{username}}</span>
       </el-header>
       <el-main>
         <el-table :data="tableData">
@@ -33,13 +33,17 @@
         address: '上海市普陀区金沙江路 1518 弄'
       };
       return {
-        tableData: Array(20).fill(item)
+        tableData: Array(20).fill(item),
+        username: ''
       }
-    }
+    },
+    created() {
+      this.username = this.$cookies.get('username')
+    },
   };
 </script>
 
-<style>
+<style lang="scss" scoped>
   .el-header {
     background-color: #B3C0D1;
     color: #333;

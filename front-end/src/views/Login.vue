@@ -4,8 +4,8 @@
       <div class="title">人才招聘平台</div>
 
       <div class="action" @click="changeAction">
-        <span id="login" :class="{'selected' : action === 'login', 'admin-login' : userType === 'admin'}" v-html="userType === 'user' ? '登录' : '管理员登录'"></span>
-        <span id="register" :class="{'selected' : action === 'register'}" v-if="userType === 'user'">注册</span>
+        <span id="login" :class="{'selected' : action === 'login', 'admin-login' : isAdmin}" v-html="isAdmin ? '管理员登录' : '登录' "></span>
+        <span id="register" :class="{'selected' : action === 'register'}" v-if="!isAdmin">注册</span>
       </div>
 
       <div class="subtitle">用户名</div>
@@ -18,14 +18,16 @@
       <el-input id="password-confirm" v-model="passwordConfirm.value" v-if="action ==='register'" :placeholder="passwordConfirm.placeholder" maxlength="20" minlength="3" :class="{'inputWarn': passwordConfirm.warn}" show-password></el-input>
       
       <div class="change-user-type">
-        <span v-html="userType === 'user' ? '管理员入口>' : '用户入口>'"
+        <span v-html="isAdmin ? '用户入口>' : '管理员入口>'"
           v-if="action ==='login'"
           @click="changeUser">
         </span>
       </div>
+
       <el-button type="danger" v-if="action ==='login'" @click="login">登录</el-button>
       <el-button type="danger" v-else @click="register">注册</el-button>
     </div>
+    
   </el-container>
 </template>
 
@@ -33,80 +35,93 @@
   export default {
     data() {
       return {
-        userType: 'user',
+        isAdmin: false,
         action: 'login',
+        userType: 'unregistered',
         username: {
-          "value": undefined,
-          "placeholder": '输入用户名',
-          "warn": false
+          value: '',
+          placeholder: '输入用户名',
+          warn: false
         },
         password: {
-          "value": undefined,
-          "placeholder": '输入密码',
-          "warn": false
+          value: '',
+          placeholder: '输入密码',
+          warn: false
         },
         passwordConfirm: {
-          "value": undefined,
-          "placeholder": '确认密码',
-          "warn": false
+          value: '',
+          placeholder: '确认密码',
+          warn: false
         },
       }
     },
+    mounted () {
+    },
+    components: {
+      // CandidateNav
+    },
     methods: {
       changeAction (e) {
-        this.inputBoxInit()
+        if (!this.isAdmin) {
+          this.inputBoxInit()
+        }
+        
         if(e.target.tagName === 'SPAN') {
           this.action = e.target.id
-          if (this.userType === 'user') {
+          if (!this.isAdmin) {
             this.username.value =''
-            this.password.value = undefined
-            this.passwordConfirm.value = undefined
+            this.password.value = ''
+            this.passwordConfirm.value = ''
           }
         }
       },
 
       changeUser () {
-        this.inputBoxInit()
-        if (this.userType === 'user') {
-          this.userType = 'admin'
-          this.username.value ='admin'
-          this.password.value = 'admin'
+        
+        if (!this.isAdmin) {
+          this.isAdmin = true
+          this.username.value ='admin1'
+          this.password.value = 'admin1'
         } else {
-          this.userType = 'user'
           this.inputBoxInit()
+          this.isAdmin = false
         }
       },
 
       inputBoxInit () {
         this.username = {
-          value: undefined,
+          value: '',
           placeholder: '输入用户名',
           warn: false
         }
         this.password = {
-          value: undefined,
+          value: '',
           placeholder: '输入密码',
           warn: false
         }
         this.passwordConfirm = {
-          value: undefined,
+          value: '',
           placeholder: '确认密码',
           warn: false
         }
       },
 
-      async login () {
-        this.inputBoxInit()
-        console.log(this.password.value)
-        if (this.username.value == null) {
-          this.username.placeholder = '用户名不能为空'
-          this.username.warn = true
-          return
+      inputFormat (inputBox) {
+        const pattern = /^[\w_-]{6,20}$/
+        let result = pattern.test(inputBox.value)
+        if (!result) {
+          inputBox.placeholder = '格式不正确'
+          inputBox.warn = true
         }
+        return result
+      },
 
-        if (this.password.value == null) {
-          this.password.placeholder = '密码不能为空'
-          this.password.warn = true
+      async login () {
+        this.username.warn = false
+        this.password.warn = false
+        this.passwordConfirm.warn = false
+
+        if (!this.inputFormat(this.username) || !this.inputFormat(this.password)) {
           return
         }
 
@@ -114,12 +129,32 @@
           username: this.username.value,
           password: this.password.value
         }
-        
-        if (this.userType === 'user') {
+
+        this.username.warn = false
+        this.password.warn = false
+
+        if (!this.isAdmin) {
           let res = await this.$axios.post('/api/login', data)
           if (res.data.ok) {
-            console.log(res.data.msg)
+            // session
+            this.$cookies.set('loginStatus', 'logged', '0')
+            this.$cookies.set('username', res.data.username, '0')
+            this.$cookies.set('usertype', res.data.usertype, '0')
+
+            this.$alert('页面即将跳转', '登录成功', {
+              confirmButtonText: '确定',
+              callback: () => {
+                if (res.data.usertype === 'unregistered') {
+                  this.$router.push('/usertypeselect')
+                } else if (res.data.usertype === 'company') {
+                  this.$router.push({ path: '/index', query: {usertype: 'company'} })
+                } else if (res.data.usertype === 'candidate') {
+                  this.$router.push({ path: '/index', query: {usertype: 'candidate'} })
+                }
+              }
+          })
           } else {
+            this.password.value = ''
             this.username.placeholder = '用户名或密码错误'
             this.password.placeholder = '用户名或密码错误'
             this.username.warn = true
@@ -129,10 +164,24 @@
       },
 
       async register () {
-        this.inputBoxInit()
-        // if (this.password.value !== this.password.valueConfirm) {
+        this.username.warn = false
+        this.password.warn = false
+        this.passwordConfirm.warn = false
 
-        // }
+        if (!this.inputFormat(this.username) || !this.inputFormat(this.password) || !this.inputFormat(this.passwordConfirm)) {
+          return
+        }
+
+        if (this.password.value !== this.passwordConfirm.value) {
+          
+            this.password.value = ''
+            this.passwordConfirm.value = ''
+            this.passwordConfirm.placeholder = '密码不一致'
+            this.password.placeholder = '密码不一致'
+            this.passwordConfirm.warn = true
+            this.password.warn = true
+            return 
+        }
         
         const data = {
           username: this.username.value,
@@ -141,11 +190,20 @@
         
         let res = await this.$axios.post('/api/register', data)
         if (res.data.ok) {
-          console.log(res.data.msg)
+          this.$alert('', '注册成功', {
+            confirmButtonText: '确定',
+            callback: () => {
+              this.action = 'login'
+              this.inputBoxInit()
+            }
+          })
         } else {
-          console.log(res.data.msg)
+          this.$alert('用户名已被注册', '注册失败', {
+            confirmButtonText: '确定'
+          })
         }       
       }
+
     }
   };
 </script>

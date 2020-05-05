@@ -11,7 +11,7 @@ module.exports = function (app) {
 
 		let isLogged = await user.login(username, password)
 		if (isLogged) {
-			res.send({ok: true, msg: '登陆成功'})
+			res.send({ok: true, msg: '登陆成功', usertype: isLogged.usertype, username: isLogged.username})
 		} else {
 			res.send({ok: false, msg: '用户名或密码错误'})
 		}
@@ -29,6 +29,11 @@ module.exports = function (app) {
 			user.register(username, password)
 			res.send({ok: true, msg: '注册成功'})
 		}
+	})
+
+	app.post('/api/usertype', async(req,res) => {
+		let resulut = await user.userTypeChange(req.body.username, req.body.usertype)
+		res.send({ok: true})
 	})
 
 }

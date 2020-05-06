@@ -24,6 +24,8 @@ import {
   TableColumn,
   Input,
   MessageBox,
+  Form,
+  FormItem
 } from 'element-ui'
 
 Vue.use(Button)
@@ -42,6 +44,8 @@ Vue.use(DropdownMenu)
 Vue.use(Table)
 Vue.use(TableColumn)
 Vue.use(Input)
+Vue.use(Form)
+Vue.use(FormItem)
 
 Vue.use(VueCookies)
 

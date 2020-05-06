@@ -26,12 +26,17 @@ Vue.use(VueRouter)
     } 
   },
   {
-    name: 'Information',
-    path: '/information',
-    component: () => import('../views/Information.vue')
+    name: '企业信息',
+    path: '/info',
+    component: () => import('../views/Info.vue')
   },
   {
-    name: 'index', 
+    name: '信息一览',
+    path: '/list',
+    component: () => import('../views/List.vue')
+  },
+  {
+    name: '首页', 
     path: '/index',
     component: () => import('../views/Index.vue'),
   }
@@ -50,7 +55,14 @@ router.beforeEach((to, from, next) => {
     }
     next()
   } else {
-    isLogin === 'logged' ? next() : next('/login')
+    if (isLogin === 'logged') {
+      next()
+      if (to.path === '/index') {
+        to.query.usertype = router.app.$cookies.get('usertype')
+      }
+    } else {
+      next('/login')
+    } 
   }
 })
 

@@ -26,7 +26,7 @@ Vue.use(VueRouter)
     } 
   },
   {
-    name: '企业信息',
+    name: '资料编辑',
     path: '/info',
     component: () => import('../views/Info.vue')
   },
@@ -56,10 +56,8 @@ router.beforeEach((to, from, next) => {
     next()
   } else {
     if (isLogin === 'logged') {
+      to.query.usertype = router.app.$cookies.get('usertype')
       next()
-      if (to.path === '/index') {
-        to.query.usertype = router.app.$cookies.get('usertype')
-      }
     } else {
       next('/login')
     } 

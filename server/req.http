@@ -20,5 +20,9 @@ Content-Type: application/json
 	"password": "123456" 
 }
 ###
-POST {{url}}/admin/login
+POST {{url}}/list
 Content-Type: application/json
+
+{
+	"tablename": "company"
+}

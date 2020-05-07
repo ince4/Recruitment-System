@@ -30,7 +30,21 @@ module.exports = {
 	userTypeChange (username, usertype) {
 		username = escape(username)
 		usertype = escape(usertype)
-		const sql = `UPDATE user SET usertype = '${usertype}' WHERE username = '${username}'`
+		const sql = `UPDATE user SET usertype = '${usertype}' WHERE username = '${username}';`
 		return exec(sql)
+	},
+
+	userTypeUpdate (username, usertype) {
+		username = escape(username)
+		usertype = escape(usertype)
+		const sql =  `insert into ${usertype} (username) values ('${username}');`
+		return exec(sql)
+	},
+
+	async getListData (tablename) {
+		tablename = escape(tablename)
+		const sql = `select * from ${tablename}`
+		const rows = await exec(sql)
+		return rows
 	}
 }

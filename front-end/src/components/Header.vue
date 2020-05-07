@@ -20,7 +20,6 @@
     watch: {
       $route() {
         this.pageTitle = this.$route.name
-        console.log(this.pageTitle)
       }
     },
     methods: {

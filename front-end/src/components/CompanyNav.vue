@@ -5,15 +5,15 @@
         <i class="el-icon-office-building"></i>信息一览
       </template>
         <el-menu-item index="/list?table=company">企业列表</el-menu-item>
-        <el-menu-item index="1-2">职位列表</el-menu-item>
-        <el-menu-item index="1-3">人才列表</el-menu-item>
+        <el-menu-item index="/list?table=job">职位列表</el-menu-item>
+        <el-menu-item index="/list?table=candidate">人才列表</el-menu-item>
     </el-submenu>
 
     <el-submenu index="2">
       <template slot="title">
         <i class="el-icon-postcard"></i>企业信息
       </template>
-        <el-menu-item index="/info?usertype=company">编辑资料</el-menu-item>
+        <el-menu-item index="/info">资料编辑</el-menu-item>
     </el-submenu>
 
     <el-submenu index="3">

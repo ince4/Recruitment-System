@@ -1,12 +1,22 @@
 <template>
     <el-container>
       <el-main>
-        <el-table :data="tableData">
-          <el-table-column prop="date" label="日期" width="140">
+        <el-table :data="tableData" size="medium">
+          <el-table-column width="auto" type="expand">
+            <template slot-scope="props">
+              <el-form label-position="left" inline>
+                <el-form-item v-for="item of fieldname.slice(2)" :key="item" :label="item">
+                  <span>{{props.row[item]}}</span>
+                </el-form-item>
+              </el-form>
+            </template>
           </el-table-column>
-          <el-table-column prop="name" label="姓名" width="120">
-          </el-table-column>
-          <el-table-column prop="address" label="地址">
+
+          <el-table-column
+            v-for="item of fieldname.slice(2, 6)"
+            :key="item"
+            :label="item"
+            :prop="item">
           </el-table-column>
         </el-table>
       </el-main>
@@ -16,19 +26,38 @@
 <script>
   export default {
     data() {
-      const item = {
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      };
       return {
-        tableData: Array(20).fill(item),
-        username: ''
+        tableData: [],
+        tablename: '',
+        fieldname: []
       }
     },
     created() {
-      this.username = this.$cookies.get('username')
+      this.usertype = this.$cookies.get('usertype')
+      this.getListData(this.tablename)
     },
+    watch: {
+      $route() {
+        this.tablename = this.$route.query.table
+        this.getListData(this.tablename)
+      }
+    },
+    methods: {
+      getListData (tablename) {
+        this.$axios.post('/api/list', {tablename})
+					.then(res => {
+            if (res.data.length > 0) {
+              this.tableData = res.data
+              this.fieldname = Object.keys(res.data[0])
+              // console.log(this.tableData)
+              console.log(this.fieldname)
+            } else {
+              this.tableData = []
+              this.fieldname = []
+            }
+          })
+      }
+    }
   };
 </script>
 

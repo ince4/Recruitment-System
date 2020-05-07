@@ -6,8 +6,12 @@ app.use(require('cors')())
 app.use(bodyParser.json({extended: false}));
 app.use(bodyParser.urlencoded({ extended:false}));
 
-const loginRouter = require('./router/login')
-loginRouter(app)
+const userRouter = require('./router/user')
+const candidateRouter = require('./router/candidate')
+const companyRouter = require('./router/company')
+userRouter(app)
+candidateRouter(app)
+companyRouter(app)
 
 app.get('/', async(req,res) => {
 	res.send('')

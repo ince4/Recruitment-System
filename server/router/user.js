@@ -2,10 +2,10 @@ const user = require('../controller/user')
 
 module.exports = function (app) {
 	app.get('/api', async(req,res) => {
-		res.send('?')
+		res.send('')
 	})
 	
-	app.post('/api/login', async(req,res) => {
+	app.post('/api/login', async(req, res) => {
 		const username = req.body.username
 		const password = req.body.password
 
@@ -17,7 +17,7 @@ module.exports = function (app) {
 		}
 	})
 
-	app.post('/api/register', async(req,res) => {
+	app.post('/api/register', async(req, res) => {
 		const username = req.body.username
 		const password = req.body.password
 		
@@ -31,9 +31,14 @@ module.exports = function (app) {
 		}
 	})
 
-	app.post('/api/usertype', async(req,res) => {
-		let resulut = await user.userTypeChange(req.body.username, req.body.usertype)
+	app.post('/api/usertype', async(req, res) => {
+		await user.userTypeChange(req.body.username, req.body.usertype)
+		await user.userTypeUpdate(req.body.username, req.body.usertype)
 		res.send({ok: true})
 	})
 
+	app.post('/api/list', async (req, res) => {
+		const result = await user.getListData(req.body.tablename)
+		res.send(result)
+	})
 }

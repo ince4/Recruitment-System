@@ -13,7 +13,7 @@
       <template slot="title">
         <i class="el-icon-postcard"></i>个人资料
       </template>
-        <el-menu-item index="/info">资料编辑</el-menu-item>
+        <el-menu-item index="/userinfo">资料编辑</el-menu-item>
     </el-submenu>
 
     <el-submenu index="3">

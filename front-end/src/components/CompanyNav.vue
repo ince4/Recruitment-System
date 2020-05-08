@@ -13,15 +13,15 @@
       <template slot="title">
         <i class="el-icon-postcard"></i>企业信息
       </template>
-        <el-menu-item index="/info">资料编辑</el-menu-item>
+        <el-menu-item index="/userinfo">资料编辑</el-menu-item>
     </el-submenu>
 
     <el-submenu index="3">
       <template slot="title">
         <i class="el-icon-collection-tag"></i>招聘管理
       </template>
-        <el-menu-item index="3-1">发布招聘</el-menu-item>
-        <el-menu-item index="3-2">应聘列表</el-menu-item>
+        <el-menu-item index="/company/jobpublish">招聘发布</el-menu-item>
+        <el-menu-item index="/company/candidatelist">应聘列表</el-menu-item>
     </el-submenu>
 
   </el-menu>

@@ -37,8 +37,8 @@ module.exports = function (app) {
 		res.send({ok: true})
 	})
 
-	app.post('/api/list', async (req, res) => {
-		const result = await user.getListData(req.body.tablename)
+	app.get('/api/list', async (req, res) => {
+		const result = await user.getListData(req.query.tablename)
 		res.send(result)
 	})
 }

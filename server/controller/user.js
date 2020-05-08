@@ -34,6 +34,12 @@ module.exports = {
 		return exec(sql)
 	},
 
+	// getUserId (username) {
+	// 	username = escape(username)
+	// 	const sql = `select id from user WHERE username = '${username}';`
+	// 	return exec(sql)
+	// },
+
 	userTypeUpdate (username, usertype) {
 		username = escape(username)
 		usertype = escape(usertype)

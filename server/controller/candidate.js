@@ -3,8 +3,7 @@ const { exec } = require('../db.js')
 module.exports = {
 	infoEdit (username, data) {
 		username = escape(username)
-		data = data
-		const sql = `UPDATE candidate SET 姓名 = '${data.name}', 求职类型 = '${data.type}', 年龄 = '${data.age}', 籍贯 = '${data.nativePlace}', 学历 = '${data.educationalBackground}', 简介 = '${data.intro}', 联系方式 = '${data.contact}' 
+		const sql = `UPDATE candidate SET 姓名 = '${data['姓名']}', 求职类型 = '${data['求职类型']}', 年龄 = '${data['年龄']}', 籍贯 = '${data['籍贯']}', 学历 = '${data['学历']}', 简介 = '${data['简介']}', 联系方式 = '${data['联系方式']}' 
 		WHERE username = '${username}'`
 		return exec(sql)
 	}

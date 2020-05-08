@@ -20,9 +20,37 @@ Content-Type: application/json
 	"password": "123456" 
 }
 ###
-POST {{url}}/list
+POST {{url}}/candidate/info
 Content-Type: application/json
 
 {
-	"tablename": "company"
+	"username": "asdgrsd",
+	"formData": {
+		"id": "15",
+		"username": "dsaffdg",
+		"名称": "123",
+		"行业": "123",
+		"地址": "123",
+		"法人": "123",
+		"注册资本": "123",
+		"联系方式": "123",
+		"其他介绍": "123"
+	}
+}
+
+###
+POST {{url}}/company/jobpublish
+Content-Type: application/json
+
+{
+	"companyid": 16,
+	"jobData": {
+		"职位名称": "15",
+		"人数": "dsaffdg",
+		"发布时间": "123",
+		"任职要求": "123",
+		"待遇": "123",
+		"是否补助": 0,
+		"联系方式": "123"
+	}
 }

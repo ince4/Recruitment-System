@@ -25,7 +25,9 @@ import {
   Input,
   MessageBox,
   Form,
-  FormItem
+  FormItem,
+  Radio,
+  RadioGroup
 } from 'element-ui'
 
 Vue.use(Button)
@@ -46,6 +48,8 @@ Vue.use(TableColumn)
 Vue.use(Input)
 Vue.use(Form)
 Vue.use(FormItem)
+Vue.use(Radio)
+Vue.use(RadioGroup)
 
 Vue.use(VueCookies)
 

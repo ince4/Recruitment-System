@@ -27,13 +27,23 @@ Vue.use(VueRouter)
   },
   {
     name: '资料编辑',
-    path: '/info',
-    component: () => import('../views/Info.vue')
+    path: '/userinfo',
+    component: () => import('../views/UserInfo.vue')
   },
   {
     name: '信息一览',
     path: '/list',
     component: () => import('../views/List.vue')
+  },
+  {
+    name: '应聘列表',
+    path: '/company/candidatelist',
+    component: () => import('../views/company/CandidateList.vue')
+  },
+  {
+    name: '招聘发布',
+    path: '/company/jobpublish',
+    component: () => import('../views/company/JobPublish.vue')
   },
   {
     name: '首页', 

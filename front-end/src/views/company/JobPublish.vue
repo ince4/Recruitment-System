@@ -10,9 +10,9 @@
         <el-input v-model="jobData['人数']" oninput="value=value.replace(/[^\d]/g,'')"></el-input>
       </el-form-item>
 
-      <el-form-item label="发布时间">
+      <!-- <el-form-item label="发布时间">
         <el-input v-model="jobData['发布时间']"></el-input>
-      </el-form-item>
+      </el-form-item> -->
 
       <el-form-item label="任职要求">
         <el-input v-model="jobData['任职要求']"></el-input>
@@ -61,7 +61,11 @@
     },
     methods: {
       onSubmit() {
-        console.log(this.jobData)
+        let currentDate = new Date()
+        currentDate = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()}`
+        this.jobData['发布时间'] = currentDate
+        console.log(currentDate)
+
         let hasEmpty = false
 				Object.values(this.jobData).forEach((item) => {
 					if (item === '' || item == null) {

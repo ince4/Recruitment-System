@@ -36,13 +36,13 @@ Vue.use(VueRouter)
     component: () => import('../views/List.vue')
   },
   {
-    name: '应聘列表',
-    path: '/company/candidatelist',
-    component: () => import('../views/company/CandidateList.vue')
+    name: '职位管理',
+    path: '/company/job/management',
+    component: () => import('../views/company/JobManagement.vue')
   },
   {
     name: '招聘发布',
-    path: '/company/jobpublish',
+    path: '/company/job/publish',
     component: () => import('../views/company/JobPublish.vue')
   },
   {

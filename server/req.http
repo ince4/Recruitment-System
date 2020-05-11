@@ -54,3 +54,13 @@ Content-Type: application/json
 		"联系方式": "123"
 	}
 }
+
+###
+POST {{url}}/collection/add
+Content-Type: application/json
+
+{
+	"username": "user123",
+	"collectionid": 16,
+	"collectiontype": "company"
+}

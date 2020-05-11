@@ -8,6 +8,11 @@
                 <el-form-item v-for="item of fieldname.slice(2)" :key="item" :label="item">
                   <span>{{props.row[item]}}</span>
                 </el-form-item>
+
+                <div class="candidate-button" v-if="usertype === 'candidate'">
+                  <el-button v-if="tablename === 'job'">应聘</el-button>
+                  <el-button v-if="tablename !== 'candidate'">收藏</el-button>
+                </div>
               </el-form>
             </template>
           </el-table-column>
@@ -29,6 +34,7 @@
       return {
         tableData: [],
         tablename: '',
+        usertype: '',
         fieldname: []
       }
     },
@@ -65,6 +71,7 @@
 </script>
 
 <style lang="scss" scoped>
+
   .el-container{
     height: calc(100vh - 60px);
 
@@ -72,15 +79,21 @@
       ::v-deep .el-table__empty-block {
         width: auto !important;
       }
+
       .table-expand {
         ::v-deep label {
           width: 90px;
           color: #99a9bf;
         }
+
         .el-form-item {
           margin-right: 0;
           margin-bottom: 0;
           width: 50%;
+        }
+
+        .candidate-button {
+          margin-top: 10px;
         }
       }
     }

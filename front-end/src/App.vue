@@ -7,7 +7,7 @@
     </el-aside>
     <el-main style="padding: 0">
       <Header v-if="this.$route.path !== '/login'"></Header>
-      <router-view></router-view>
+      <router-view v-cloak></router-view>
     </el-main>
   </el-container>
 </template>
@@ -42,4 +42,19 @@
 
 <style lang="scss" scoped>
 
+  .fade-enter {
+  opacity: 0; 
+  }
+
+  .fade-enter-active {
+    transition: opacity .5s;
+  }
+
+  .fade-leave {
+    opacity: 1;
+  }
+  
+  .fade-enter-leave-active {
+    transition: opacity .5s;
+  }
 </style>

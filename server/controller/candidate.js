@@ -27,9 +27,7 @@ module.exports = {
 		username = escape(username)
 		collectiontype = escape(collectiontype)
 		const sql = `select ${collectiontype}.* from collection, ${collectiontype}
-		where collection.username = '${username}' 
-		and collection.collectiontype = '${collectiontype}'
-		and collection.collectionid = ${collectiontype}.id`
+		where collection.username = '${username}' and collection.collectiontype = '${collectiontype}' and ${collectiontype}.id = collection.collectionid`
 		const rows = await exec(sql)
 		return rows
 	}

@@ -5,12 +5,18 @@
           <el-table-column width="auto" type="expand">
             <template slot-scope="props">
               <el-form label-position="left" class="table-expand">
-                <el-form-item v-for="item of fieldname.slice(2)" :key="item" :label="item">
+                <el-form-item v-for="item of fieldname.slice(2, fieldname.length - 1)" :key="item" :label="item">
                   <span>{{props.row[item]}}</span>
                 </el-form-item>
                 <div class="candidate-button" v-if="usertype === 'candidate'">
                   <el-button v-if="tablename === 'job'" size="small">应聘</el-button>
-                  <el-button v-if="tablename !== 'candidate'" v-html="props.row.isCollected == true ? '取消收藏' : '收藏'" size="small"></el-button>
+
+                  <el-button
+                  v-if="tablename !== 'candidate'"
+                  v-html="props.row.isCollected == true ? '取消收藏' : '收藏'" 
+                  size="small"
+                  @click="collect(props.row)">
+                  </el-button>
                 </div>
               </el-form>
             </template>
@@ -44,6 +50,7 @@
     created() {
       this.usertype = this.$cookies.get('usertype')
       this.username = this.$cookies.get('username')
+      this.tablename = this.$route.query.table
       this.getFieldName()
       this.findCollectionItem()
     },
@@ -72,6 +79,37 @@
            let collectedId = this.tableData.findIndex(item => obj.id === item.id)
            this.tableData[collectedId]['isCollected'] = true
           });
+        }
+      },
+
+      async collect (item) {
+        if (!item.isCollected) {
+          const res = await this.$axios.post(`/api/collection/add`, {
+            username: this.username,
+            collectionid: item.id,
+            collectiontype: this.tablename
+          })
+
+          res.data.ok && this.$alert(item, '收藏成功', {
+            confirmButtonText: '确定',
+            callback: () => {
+              this.$set(item, 'isCollected', true)
+              this.$forceUpdate()
+            }
+					})
+        } else {
+          const res = await this.$axios.post(`/api/collection/remove`, {
+            username: this.username,
+            collectionid: item.id,
+          })
+
+          res.data.ok && this.$alert(item, '已取消收藏', {
+            confirmButtonText: '确定',
+            callback: () => {
+              this.$delete(item, 'isCollected', false)
+              this.$forceUpdate()
+            }
+					})
         }
       }
     }

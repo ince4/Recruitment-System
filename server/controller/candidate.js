@@ -8,11 +8,29 @@ module.exports = {
 		return exec(sql)
 	},
 
-	addCollection (username, collectionid, collectiontype) {
+	addCollection (username, collectiontype, collectionid) {
 		username = escape(username)
 		collectionid = escape(collectionid)
 		collectiontype = escape(collectiontype)
-		const sql = `insert into collection (username, collectionid, collectiontype) values ('${username}', '${collectionid}', '${collectiontype}')` 
+		const sql = `insert into collection (username, collectiontype, collectionid) values ('${username}', '${collectiontype}', '${collectionid}')` 
 		return exec(sql)
+	},
+
+	removeCollection (username, collectionid) {
+		username = escape(username)
+		collectionid = escape(collectionid)
+		const sql = `delete from collection where collectionid = '${collectionid}' and username = '${username}' `
+		return exec(sql)
+	},
+
+	async getCollection (username, collectiontype) {
+		username = escape(username)
+		collectiontype = escape(collectiontype)
+		const sql = `select ${collectiontype}.* from collection, ${collectiontype}
+		where collection.username = '${username}' 
+		and collection.collectiontype = '${collectiontype}'
+		and collection.collectionid = ${collectiontype}.id`
+		const rows = await exec(sql)
+		return rows
 	}
 }

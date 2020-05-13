@@ -56,6 +56,7 @@
     },
     watch: {
       initTableData (newValue) {
+        console.log(newValue)
         this.tableData = newValue
         this.tablename = this.$route.query.table
         this.getFieldName()
@@ -94,7 +95,6 @@
             confirmButtonText: '确定',
             callback: () => {
               this.$set(item, 'isCollected', true)
-              this.$forceUpdate()
             }
 					})
         } else {
@@ -107,7 +107,7 @@
             confirmButtonText: '确定',
             callback: () => {
               this.$delete(item, 'isCollected', false)
-              this.$forceUpdate()
+              this.$emit('updateData')
             }
 					})
         }

@@ -46,6 +46,11 @@ Vue.use(VueRouter)
     component: () => import('../views/company/JobPublish.vue')
   },
   {
+    name: '收藏',
+    path: '/candidate/collectionlist',
+    component: () => import('../views/candidate/CollectionList.vue')
+  },
+  {
     name: '首页', 
     path: '/index',
     component: () => import('../views/Index.vue'),

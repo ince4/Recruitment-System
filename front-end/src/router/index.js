@@ -38,7 +38,7 @@ Vue.use(VueRouter)
   {
     name: '职位管理',
     path: '/company/job/management',
-    component: () => import('../views/company/JobManagement.vue')
+    component: () => import('../views/company/ApplicationManagement.vue')
   },
   {
     name: '招聘发布',

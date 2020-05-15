@@ -92,7 +92,7 @@
           jobData: this.jobData
         }
 
-        this.$axios.post('/api/company/jobpublish', data)
+        this.$axios.post('/api/job/publish', data)
 					.then(res => {
 						if (res.data.ok) {
 							this.$alert('', '提交成功', {

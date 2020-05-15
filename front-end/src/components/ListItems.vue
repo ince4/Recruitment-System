@@ -9,7 +9,12 @@
                   <span>{{props.row[item]}}</span>
                 </el-form-item>
                 <div class="candidate-button" v-if="usertype === 'candidate'">
-                  <el-button v-if="tablename === 'job'" size="small">应聘</el-button>
+                  <el-button
+                  v-if="tablename === 'job'"
+                  size="small"
+                  @click="jobApply(props.row)">
+                    应聘
+                  </el-button>
 
                   <el-button
                   v-if="tablename !== 'candidate'"
@@ -91,7 +96,7 @@
             collectiontype: this.tablename
           })
 
-          res.data.ok && this.$alert(item, '收藏成功', {
+          res.data.ok && this.$alert('', '收藏成功', {
             confirmButtonText: '确定',
             callback: () => {
               this.$set(item, 'isCollected', true)
@@ -103,7 +108,7 @@
             collectionid: item.id,
           })
 
-          res.data.ok && this.$alert(item, '已取消收藏', {
+          res.data.ok && this.$alert('', '已取消收藏', {
             confirmButtonText: '确定',
             callback: () => {
               this.$delete(item, 'isCollected', false)
@@ -111,7 +116,23 @@
             }
 					})
         }
+      },
+      
+      jobApply (item) {
+        this.$axios.post('/api/job/apply', {jobid: item.id, candidatename: this.username})
+					.then(res => {
+						if (res.data.ok) {
+							this.$alert('已发送应聘申请', '提交成功', {
+								confirmButtonText: '确定',
+							})
+						} else {
+              this.$alert('已提交过申请，不能重复提交', '提交失败', {
+								confirmButtonText: '确定',
+							})
+            }
+				})
       }
+
     }
   };
 </script>

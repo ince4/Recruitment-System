@@ -76,3 +76,12 @@ Content-Type: application/json
 
 ###
 GET {{url}}/collection/list?username=ym1234&collectiontype=job
+
+###
+POST {{url}}/job/apply
+Content-Type: application/json
+
+{
+	"jobid": 8,
+	"candidatename": "ym1234"
+}

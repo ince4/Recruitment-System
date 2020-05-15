@@ -21,4 +21,13 @@ module.exports = function (app) {
 		result.length === 0 ? res.send({ok: false}) : res.send({ok: true, data: result})
 	})
 
+	app.post('/api/job/apply', async(req, res) => {
+		const isDupte = await candidate.isApplicationDupte(req.body.jobid, req.body.candidatename)
+		if (isDupte.length !== 0) {
+			res.send({ok: false})
+		} else {
+			const result = await candidate.jobApply(req.body.jobid, req.body.candidatename)
+			res.send({ok: true})
+		}
+	})
 }

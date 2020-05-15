@@ -30,5 +30,20 @@ module.exports = {
 		where collection.username = '${username}' and collection.collectiontype = '${collectiontype}' and ${collectiontype}.id = collection.collectionid`
 		const rows = await exec(sql)
 		return rows
+	},
+
+	jobApply (jobid, candidatename) {
+		jobid = escape(jobid)
+		candidatename = escape(candidatename)
+		const sql = `insert into jobapplication (jobid, candidatename) values ('${jobid}', '${candidatename}')` 
+		return exec(sql)
+	},
+
+	isApplicationDupte (jobid, candidatename) {
+		jobid = escape(jobid)
+		candidatename = escape(candidatename)
+		const sql = `select status from jobapplication
+		where jobid = ${jobid} and candidatename = '${candidatename}'` 
+		return exec(sql)
 	}
 }

@@ -61,7 +61,6 @@
     },
     watch: {
       initTableData (newValue) {
-        console.log(newValue)
         this.tableData = newValue
         this.tablename = this.$route.query.table
         this.getFieldName()
@@ -71,13 +70,17 @@
     methods: {
       async getFieldName () {
         for (let index in this.tableData) {
-          let values = Object.values(this.tableData[index])
-          values.some((v) => v == null) ? this.tableData.splice(index, 1) 
-          : this.fieldname = Object.keys(this.tableData[0])
+          let hasOwnProperty = Object.prototype.hasOwnProperty.call(this.tableData[index], 'isapprove')
+          if (hasOwnProperty && this.tableData[index]['isapprove'] == false) {
+            this.tableData.splice(index, 1)
+          } else {
+            this.fieldname = Object.keys(this.tableData[0])
+          }
         }
       },
 
       async findCollectionItem () {
+        // console.log(this.tableData)
         let res = await this.$axios.get(`/api/collection/list?username=${this.username}&collectiontype=${this.tablename}`)
         if (res.data.ok) {
           const collection = res.data.data

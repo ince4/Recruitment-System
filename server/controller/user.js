@@ -17,12 +17,12 @@ module.exports = {
 		return exec(sql)
 	},
 
-	async login (username, password) {
+	async login (username, password, isadmin) {
 		username = escape(username)
 		password = escape(password)
 
 		const sql = `select id,username,usertype from user
-		WHERE username = '${username}' and pass = '${password}'`
+		WHERE username = '${username}' and pass = '${password}' and isadmin = ${isadmin}`
 		const rows = await exec(sql)
 		return rows[0]
 	},
@@ -50,6 +50,13 @@ module.exports = {
 	async getListData (tablename) {
 		tablename = escape(tablename)
 		const sql = `select * from ${tablename}`
+		const rows = await exec(sql)
+		return rows
+	},
+
+	async getApplication (tablename) {
+		tablename = escape(tablename)
+		const sql = `select * from ${tablename} where isapprove = '0'`
 		const rows = await exec(sql)
 		return rows
 	}

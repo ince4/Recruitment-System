@@ -23,6 +23,8 @@
         this.usertype = '公司'
       } else if (this.$cookies.get('usertype') === 'candidate') {
         this.usertype = '求职'
+      } else {
+        this.usertype = '管理员'
       }
     },
     watch: {

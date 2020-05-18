@@ -51,6 +51,16 @@ Vue.use(VueRouter)
     component: () => import('../views/candidate/CollectionList.vue')
   },
   {
+    name: '应聘记录',
+    path: '/candidate/applicationlist',
+    component: () => import('../views/candidate/ApplicationList.vue')
+  },
+  {
+    name: '后台管理',
+    path: '/admin/audit',
+    component: () => import('../views/admin/Audit.vue')
+  },
+  {
     name: '首页', 
     path: '/index',
     component: () => import('../views/Index.vue'),

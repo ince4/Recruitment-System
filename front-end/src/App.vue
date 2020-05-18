@@ -15,6 +15,7 @@
 <script>
   import CandidateNav from './components/CandidateNav'
   import CompanyNav from './components/CompanyNav'
+  import AdminNav from './components/AdminNav'
   import Header from './components/Header'
   export default {
     data() {
@@ -25,6 +26,7 @@
     components: {
       CandidateNav,
       CompanyNav,
+      AdminNav,
       Header
     },
     watch: {
@@ -34,6 +36,8 @@
           this.navType = 'CandidateNav'
         } else if (usertype === 'company') {
           this.navType = 'CompanyNav'
+        } else if (usertype === 'admin') {
+          this.navType = 'AdminNav'
         }
       }
     }

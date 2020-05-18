@@ -30,4 +30,10 @@ module.exports = function (app) {
 			res.send({ok: true})
 		}
 	})
+
+	app.get('/api/job/applicationlist', async(req, res) => {
+		const result = await candidate.getJobApplication(req.query.candidatename)
+		result.length !== 0 ? res.send({ok: true, data: result}) : res.send({ok: false})
+		
+	})
 }

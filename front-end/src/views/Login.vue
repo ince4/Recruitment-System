@@ -127,16 +127,17 @@
 
         const data = {
           username: this.username.value,
-          password: this.password.value
+          password: this.password.value,
+          isadmin: this.isAdmin
         }
 
         this.username.warn = false
         this.password.warn = false
 
-        if (!this.isAdmin) {
+        // if (!this.isAdmin) {
           let res = await this.$axios.post('/api/login', data)
           if (res.data.ok) {
-            // session
+
             this.$cookies.set('loginStatus', 'logged', '0')
             this.$cookies.set('username', res.data.username, '0')
             this.$cookies.set('usertype', res.data.usertype, '0')
@@ -150,6 +151,8 @@
                   this.$router.push({ path: '/index', query: {usertype: 'company'} })
                 } else if (res.data.usertype === 'candidate') {
                   this.$router.push({ path: '/index', query: {usertype: 'candidate'} })
+                } else if (res.data.usertype === 'admin') {
+                  this.$router.push( {path: '/index'} )
                 }
               }
           })
@@ -160,7 +163,7 @@
             this.username.warn = true
             this.password.warn = true
           }
-        }
+        // }
       },
 
       async register () {
@@ -210,7 +213,6 @@
 
 <style lang="scss" scoped>
   .el-container {
-    // background: url('../../public/49565477_p2_master1200.jpg');
     background-size: cover;
     height: 100vh;
     user-select: none;

@@ -8,8 +8,9 @@ module.exports = function (app) {
 	app.post('/api/login', async(req, res) => {
 		const username = req.body.username
 		const password = req.body.password
+		const isadmin = req.body.isadmin
 
-		let isLogged = await user.login(username, password)
+		let isLogged = await user.login(username, password, isadmin)
 		if (isLogged) {
 			res.send({ok: true, msg: '登陆成功', usertype: isLogged.usertype, username: isLogged.username})
 		} else {
@@ -39,6 +40,11 @@ module.exports = function (app) {
 
 	app.get('/api/list', async (req, res) => {
 		const result = await user.getListData(req.query.tablename)
+		res.send(result)
+	})
+
+	app.get('/api/admin/application', async (req, res) => {
+		const result = await user.getApplication(req.query.tablename)
 		res.send(result)
 	})
 }

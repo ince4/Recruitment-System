@@ -22,7 +22,7 @@
       </template>
         <el-menu-item index="/candidate/collectionlist?table=job">收藏职位</el-menu-item>
         <el-menu-item index="/candidate/collectionlist?table=company">收藏企业</el-menu-item>
-        <el-menu-item index="3-3">应聘记录</el-menu-item>
+        <el-menu-item index="/candidate/applicationlist?table=job">应聘记录</el-menu-item>
     </el-submenu>
 
   </el-menu>

@@ -76,6 +76,15 @@ Content-Type: application/json
 }
 
 ###
+POST {{url}}/admin/approve
+Content-Type: application/json
+
+{
+	"tablename": "job",
+	"id": 6
+}
+
+###
 GET {{url}}/job/applicationlist?candidatename=ym1234
 
 ###

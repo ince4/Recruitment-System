@@ -94,7 +94,7 @@
 					this.$axios.post('/api/company/userinfo', data)
 						.then(res => {
 							if (res.data.ok) {
-								this.$alert('', '提交成功', {
+								this.$alert('已提交修改申请', '提交成功', {
 									confirmButtonText: '确定',
 								})
 							}
@@ -103,7 +103,7 @@
 					this.$axios.post('/api/candidate/userinfo', data)
 						.then(res => {
 							if (res.data.ok) {
-								this.$alert('', '提交成功', {
+								this.$alert('已提交修改申请', '提交成功', {
 									confirmButtonText: '确定',
 								})
 							}

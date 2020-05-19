@@ -9,9 +9,12 @@ app.use(bodyParser.urlencoded({ extended:false}));
 const userRouter = require('./router/user')
 const candidateRouter = require('./router/candidate')
 const companyRouter = require('./router/company')
+const adminRouter = require('./router/admin')
+
 userRouter(app)
 candidateRouter(app)
 companyRouter(app)
+adminRouter(app)
 
 app.get('/', async(req,res) => {
 	res.send('')

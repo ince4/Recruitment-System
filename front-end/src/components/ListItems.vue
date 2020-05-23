@@ -5,7 +5,7 @@
           <el-table-column width="auto" type="expand">
             <template slot-scope="props">
               <el-form label-position="left" class="table-expand">
-                <el-form-item v-for="item of fieldname.slice(2, fieldname.length - 1)" :key="item" :label="item">
+                <el-form-item v-for="item of displayField.slice(3)" :key="item" :label="item">
                   <span>{{props.row[item]}}</span>
                 </el-form-item>
                 <div class="candidate-button" v-if="usertype === 'candidate'">
@@ -28,7 +28,7 @@
           </el-table-column>
 
           <el-table-column
-            v-for="item of fieldname.slice(2, 7)"
+            v-for="item of fieldname.slice(3, 7)"
             :key="item"
             :label="item"
             :prop="item">
@@ -49,7 +49,8 @@
         usertype: '',
         fieldname: [],
         username: '',
-        tableData: this.initTableData
+        tableData: [...this.initTableData],
+        collection: []
 			}
 		},
     created() {
@@ -67,6 +68,11 @@
         this.findCollectionItem()
       }
     },
+    computed: {
+      displayField () {
+        return this.fieldname.filter(item => item !== 'isCollected')
+      }
+    },
     methods: {
       async getFieldName () {
         for (let index in this.tableData) {
@@ -80,14 +86,14 @@
       },
 
       async findCollectionItem () {
-        // console.log(this.tableData)
         let res = await this.$axios.get(`/api/collection/list?username=${this.username}&collectiontype=${this.tablename}`)
         if (res.data.ok) {
           const collection = res.data.data
+
           collection.forEach(obj => {
-           let collectedId = this.tableData.findIndex(item => obj.id === item.id)
-           this.tableData[collectedId]['isCollected'] = true
-          });
+            let collectedId = this.tableData.findIndex(item => obj.id === item.id)
+            this.tableData[collectedId]['isCollected'] = true
+          })
         }
       },
 

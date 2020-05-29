@@ -89,3 +89,6 @@ GET {{url}}/job/applicationlist?candidatename=ym1234
 
 ###
 GET {{url}}/admin/application?tablename=job
+
+###
+GET {{url}}/list/search?tablename=job&fieldname=职位名称&keyword=r11

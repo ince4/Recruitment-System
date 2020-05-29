@@ -1,5 +1,13 @@
 <template>
     <el-container>
+      <el-header>  
+        <el-input
+          placeholder="请输入名称"
+          prefix-icon="el-icon-search"
+          v-model="searchStr"
+          @input="search(searchStr, 2000)">
+        </el-input>
+    </el-header>
       <list-items :initTableData = tableData></list-items>
     </el-container>
 </template>
@@ -11,7 +19,8 @@
       return {
         tableData: [],
         tablename: '',
-        username: ''
+        username: '',
+        searchStr: ''
       }
     },
     created() {
@@ -33,7 +42,26 @@
         } else {
           this.tableData = []
         }
-      }
+      },
+      
+      async search (keyword) {
+        let fieldname
+        
+        if (this.tablename === 'candidate') {
+          fieldname = '姓名'
+        } else if (this.tablename === 'company') {
+          fieldname = '名称'
+        } else if (this.tablename === 'job') {
+          fieldname = '职位名称'
+        }
+
+        let res = await this.$axios.get(`/api/list/search?tablename=${this.tablename}&fieldname=${fieldname}&keyword=${keyword}`)
+        if (res.data.length !== 0) {
+          this.tableData = res.data
+        } else {
+          this.tableData = []
+        }
+      },
     },
     components: {
       ListItems
@@ -42,4 +70,14 @@
 </script>
 
 <style lang="scss" scoped>
+  .el-container {
+    height: calc(100vh - 60px);
+    .el-header {
+      // height: 40px!important;
+      .el-input {
+        // width: 200px;
+        margin: 10px ;
+      }
+    }
+  }
 </style>

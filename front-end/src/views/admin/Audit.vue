@@ -16,7 +16,7 @@
           </el-table-column>
 
           <el-table-column
-            v-for="item of fieldname.slice(2, 7)"
+            v-for="item of fieldname.slice(3, 7)"
             :key="item"
             :label="item"
             :prop="item">

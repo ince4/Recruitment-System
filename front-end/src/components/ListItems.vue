@@ -149,31 +149,35 @@
 <style lang="scss" scoped>
 
   .el-container{
-    height: calc(100vh - 60px);
+    // height: calc(100vh - 60px);
+    .el-main {
+      padding-top: 0px;
+      .el-table {
 
-    .el-table {
-      ::v-deep .el-table__empty-block {
-        width: auto !important;
-      }
-
-      .table-expand {
-        ::v-deep label {
-          width: 90px;
-          color: #99a9bf;
+        ::v-deep .el-table__empty-block {
+          width: auto !important;
         }
 
-        .el-form-item {
-          margin-right: 0;
-          margin-bottom: 0;
-          width: 50%;
-        }
+        .table-expand {
+          ::v-deep label {
+            width: 90px;
+            color: #99a9bf;
+          }
 
-        .candidate-button {
-          margin-top: 10px;
+          .el-form-item {
+            margin-right: 0;
+            margin-bottom: 0;
+            width: 50%;
+          }
 
+          .candidate-button {
+            margin-top: 10px;
+
+          }
         }
       }
     }
+
 
   }
 </style>

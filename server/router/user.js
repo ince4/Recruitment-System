@@ -43,6 +43,11 @@ module.exports = function (app) {
 		res.send(result)
 	})
 
+	app.get('/api/list/search', async (req, res) => {
+		const result = await user.search(req.query.tablename, req.query.fieldname, req.query.keyword)
+		res.send(result)
+	})
+
 	app.get('/api/admin/application', async (req, res) => {
 		const result = await user.getApplication(req.query.tablename)
 		res.send(result)

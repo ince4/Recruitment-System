@@ -54,10 +54,20 @@ module.exports = {
 		return rows
 	},
 
+	async search (tablename, fieldname, keyword) {
+		tablename = escape(tablename)
+		keyword = escape(keyword)
+		const sql = `select * from ${tablename} where ${fieldname} like '${keyword}%%'`
+		const rows = await exec(sql)
+		return rows
+	},
+
 	async getApplication (tablename) {
 		tablename = escape(tablename)
 		const sql = `select * from ${tablename} where isapprove = '0'`
 		const rows = await exec(sql)
 		return rows
 	}
+
+
 }
